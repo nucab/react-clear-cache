@@ -9,7 +9,7 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "bin": {
-    "generate-build-meta": "./cli.js"
+    "generate-build-meta": "./bin/cli.js"
   },
   "files": [
     "bin"
