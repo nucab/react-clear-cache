@@ -1,6 +1,6 @@
 {
   "name": "react-clear-cache",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A component to manage application updates.",
   "author": "noahjohn9259",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "generate-build-meta": "./cli.js"
   },
   "files": [
-    "cli.js"
+    "dist"
   ],
   "engines": {
     "node": ">=8",
@@ -57,8 +57,5 @@
     "rollup-plugin-typescript2": "^0.17.0",
     "rollup-plugin-url": "^1.4.0",
     "typescript": "3.5.2"
-  },
-  "files": [
-    "dist"
-  ]
+  }
 }
