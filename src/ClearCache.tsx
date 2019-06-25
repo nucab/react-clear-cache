@@ -4,7 +4,7 @@ import * as React from 'react';
 import createPersistedState from 'use-persisted-state';
 
 type OwnProps = {
-  duration: number;
+  duration?: number;
   children: any;
 };
 

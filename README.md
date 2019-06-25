@@ -26,7 +26,7 @@ This will generate `meta.json` file. This will have the version key with the lat
 ```tsx
 import * as React from 'react';
 
-import ClearCache from 'react-clear-cache';
+import { ClearCache } from 'react-clear-cache';
 
 const App: React.FC<{}> = () => {
   return (
