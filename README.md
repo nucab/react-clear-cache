@@ -12,7 +12,7 @@ $ npm install --save react-clear-cache
 
 ## Add script in package.json
 
-This will generate `meta.json` which will contain the latest version.
+This will generate `meta.json` file. This will have the version key with the latest build.
 
 ```bash
 {
