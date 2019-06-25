@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import * as React from 'react';
 
-import ExampleComponent from 'react-clear-cache2'
+import ClearCache from 'react-clear-cache';
 
-export default class App extends Component {
-  render () {
-    return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
-      </div>
-    )
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <ClearCache>{() => <div>App works!</div>}</ClearCache>
+    </div>
+  );
+};
+
+export default App;

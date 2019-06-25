@@ -1,6 +1,6 @@
 {
-  "short_name": "react-clear-cache2",
-  "name": "react-clear-cache2",
+  "short_name": "react-clear-cache",
+  "name": "react-clear-cache",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",

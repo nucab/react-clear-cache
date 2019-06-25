@@ -1,7 +1,7 @@
-import ExampleComponent from './'
+import ClearCache from './';
 
-describe('ExampleComponent', () => {
+describe('ClearCache', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+    expect(ClearCache).toBeTruthy();
+  });
+});

@@ -1,29 +1,31 @@
-# react-clear-cache2
+# react-clear-cache
 
 > A component to manage application updates.
 
-[![NPM](https://img.shields.io/npm/v/react-clear-cache2.svg)](https://www.npmjs.com/package/react-clear-cache2) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-clear-cache.svg)](https://www.npmjs.com/package/react-clear-cache) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-clear-cache2
+npm install --save react-clear-cache
 ```
 
 ## Usage
 
 ```tsx
-import * as React from 'react'
+import * as React from 'react';
 
-import MyComponent from 'react-clear-cache2'
+import ClearCache from 'react-clear-cache';
 
-class Example extends React.Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <ClearCache>{() => <div>App works!</div>}</ClearCache>
+    </div>
+  );
+};
+
+export default App;
 ```
 
 ## License
