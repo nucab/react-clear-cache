@@ -1,13 +1,6 @@
 #!/usr/bin/env node
 
-// Grab provided args.
-// const [, , ...args] = process.argv;
-
-// Print hello world provided args.
-// console.log(`Hello world ${args}`);
-
 const fs = require('fs');
-const path = require('path');
 const uuidv4 = require('uuid/v4');
 
 const appVersion = uuidv4();
@@ -17,8 +10,6 @@ const jsonData = {
 };
 
 const jsonContent = JSON.stringify(jsonData);
-
-console.log(path.resolve(__dirname));
 
 fs.writeFile(
   './public/meta.json',

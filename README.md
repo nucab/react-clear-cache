@@ -10,6 +10,17 @@
 $ npm install --save react-clear-cache
 ```
 
+## Add script in package.json
+
+This will generate `meta.json` which will contain the latest version.
+
+```bash
+{
+  "prebuild": "npm run generate-build-meta",
+  "generate-build-meta": "./node_modules/react-clear-cache/bin/cli.js"
+}
+```
+
 ## Usage
 
 ```tsx
