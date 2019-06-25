@@ -24,6 +24,6 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src"],
+  "include": ["src", "bin/generate-build-meta.js"],
   "exclude": ["node_modules", "build", "dist", "example", "rollup.config.js"]
 }

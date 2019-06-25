@@ -8,6 +8,9 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
+  "bin": {
+    "generate-build-meta": "./cli.js"
+  },
   "engines": {
     "node": ">=8",
     "npm": ">=5"
@@ -22,7 +25,8 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
-    "use-persisted-state": "^0.3.0"
+    "use-persisted-state": "^0.3.0",
+    "uuid": "^3.3.2"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",

@@ -15,9 +15,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "prebuild": "npm run generate-build-meta",
-    "generate-build-meta": "node scripts/generate-build-meta"
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
