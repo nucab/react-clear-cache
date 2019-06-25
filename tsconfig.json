@@ -8,6 +8,7 @@
     "allowJs": false,
     "jsx": "preserve",
     "moduleResolution": "node",
+    "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -21,7 +22,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true
   },
   "include": ["src", "bin/generate-build-meta.js"],
