@@ -11,6 +11,9 @@
   "bin": {
     "generate-build-meta": "./cli.js"
   },
+  "files": [
+    "cli.js"
+  ],
   "engines": {
     "node": ">=8",
     "npm": ">=5"
