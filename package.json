@@ -12,7 +12,7 @@
     "generate-build-meta": "./cli.js"
   },
   "files": [
-    "cli.js"
+    "bin"
   ],
   "engines": {
     "node": ">=8",
