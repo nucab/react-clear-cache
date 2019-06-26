@@ -6,9 +6,14 @@ import createPersistedState from 'use-persisted-state';
 type OwnProps = {
   duration?: number;
   children: any;
+  relativePath?: any;
 };
 
-const ClearCache: React.FC<OwnProps> = ({ duration = 60 * 1000, children }) => {
+const ClearCache: React.FC<OwnProps> = ({
+  relativePath = '',
+  duration = 60 * 1000,
+  children
+}) => {
   const [loading, setLoading] = React.useState(true);
   const [isLatestVersion, setIsLatestVersion] = React.useState(false);
   const [latestVersion, setLatestVersion] = React.useState('');
@@ -32,7 +37,7 @@ const ClearCache: React.FC<OwnProps> = ({ duration = 60 * 1000, children }) => {
   }
 
   function fetchMeta() {
-    fetch('/meta.json', {
+    fetch(`${relativePath}/meta.json`, {
       cache: 'no-store'
     })
       .then(response => response.json())
@@ -41,7 +46,7 @@ const ClearCache: React.FC<OwnProps> = ({ duration = 60 * 1000, children }) => {
         const currentVersion = appVersion;
         const shouldForceRefresh = newVersion !== currentVersion;
         if (shouldForceRefresh) {
-          console.log('An update is avaialbe!');
+          console.log('An update is available!');
           if (!appVersion) {
             setAppVersion(newVersion);
           }

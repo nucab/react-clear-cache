@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ClearCache from 'react-clear-cache2';
+import ClearCache from 'react-clear-cache';
 
 import logo from './logo.svg';
 import './App.css';
@@ -30,7 +30,7 @@ const App = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Learn React
+                Learn React 2
               </a>
             </header>
           </div>

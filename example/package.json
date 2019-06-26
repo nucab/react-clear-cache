@@ -6,15 +6,20 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.4",
+    "react-clear-cache": "^1.0.12",
     "react-dom": "^16.8.4",
-    "react-scripts": "^3.0.1",
-    "react-clear-cache2": "file:.."
+    "react-scripts": "^3.0.1"
+  },
+  "devDependencies": {
+    "react-clear-cache": "file:.."
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prebuild": "npm run generate-build-meta",
+    "generate-build-meta": "./node_modules/react-clear-cache/bin/cli.js"
   },
   "browserslist": {
     "production": [
