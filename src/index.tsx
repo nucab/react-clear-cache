@@ -16,9 +16,9 @@ const ClearCache: React.FC<OwnProps> = ({
 }) => {
   const [loading, setLoading] = React.useState(true);
   const [isLatestVersion, setIsLatestVersion] = React.useState(false);
-  const [latestVersion, setLatestVersion] = React.useState('');
   const useAppVersionState = createPersistedState('appVersion');
   const [appVersion, setAppVersion] = useAppVersionState('');
+  const [latestVersion, setLatestVersion] = React.useState(appVersion);
 
   function emptyCacheStorage() {
     console.log('Clearing cache and hard reloading...');

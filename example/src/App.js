@@ -7,8 +7,8 @@ import './App.css';
 const App = () => {
   return (
     <div>
-      <ClearCache duration={5000}>
-        {({ isLatestVersion, latestVersion }) => (
+      <ClearCache relativePath="/react-clear-cache" duration={5000}>
+        {({ isLatestVersion, latestVersion, emptyCacheStorage }) => (
           <div className="App">
             <header className="App-header">
               <p>
@@ -21,6 +21,19 @@ const App = () => {
               <p>
                 <strong>Latest version</strong>: {latestVersion}
               </p>
+              {!isLatestVersion && (
+                <p>
+                  <a
+                    href="#"
+                    onClick={e => {
+                      e.preventDefault();
+                      emptyCacheStorage();
+                    }}
+                  >
+                    Update version
+                  </a>
+                </p>
+              )}
               <p>
                 Edit <code>src/App.tsx</code> and save to reload.
               </p>
@@ -30,7 +43,7 @@ const App = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Learn React 2
+                Learn React 3
               </a>
             </header>
           </div>

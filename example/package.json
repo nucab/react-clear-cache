@@ -6,12 +6,11 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.4",
-    "react-clear-cache": "^1.0.12",
     "react-dom": "^16.8.4",
     "react-scripts": "^3.0.1"
   },
   "devDependencies": {
-    "react-clear-cache": "file:.."
+    "react-clear-cache": "^1.0.13"
   },
   "scripts": {
     "start": "react-scripts start",
