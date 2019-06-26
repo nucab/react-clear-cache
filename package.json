@@ -12,7 +12,8 @@
     "generate-build-meta": "./bin/cli.js"
   },
   "files": [
-    "bin"
+    "bin",
+    "dist"
   ],
   "engines": {
     "node": ">=8",
@@ -32,14 +33,13 @@
     "uuid": "^3.3.2"
   },
   "peerDependencies": {
-    "prop-types": "^15.5.4",
+    "prop-types": "^15.7.2",
     "react": "^15.0.0 || ^16.0.0",
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
     "@types/jest": "24.0.15",
-    "@types/node": "12.0.10",
     "@types/react": "16.8.22",
     "@types/react-dom": "16.8.4",
     "@types/use-persisted-state": "^0.3.0",
