@@ -15,7 +15,7 @@ const ClearCache: React.FC<OwnProps> = ({
   children
 }) => {
   const [loading, setLoading] = React.useState(true);
-  const [isLatestVersion, setIsLatestVersion] = React.useState(false);
+  const [isLatestVersion, setIsLatestVersion] = React.useState(true);
   const useAppVersionState = createPersistedState('appVersion');
   const [appVersion, setAppVersion] = useAppVersionState('');
   const [latestVersion, setLatestVersion] = React.useState(appVersion);
