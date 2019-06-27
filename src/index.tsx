@@ -24,7 +24,7 @@ const ClearCache: React.FC<OwnProps> = ({
     console.log('Clearing cache and hard reloading...');
     if (!latestVersion) return;
     setAppVersion(latestVersion);
-    if (caches) {
+    if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(names => {
         // eslint-disable-next-line no-restricted-syntax
