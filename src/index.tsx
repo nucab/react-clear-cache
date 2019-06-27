@@ -22,8 +22,6 @@ const ClearCache: React.FC<OwnProps> = ({
 
   function emptyCacheStorage() {
     console.log('Clearing cache and hard reloading...');
-    if (!latestVersion) return;
-    setAppVersion(latestVersion);
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(names => {
