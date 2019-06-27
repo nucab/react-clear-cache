@@ -15,13 +15,15 @@ const ClearCache: React.FC<OwnProps> = ({
   children
 }) => {
   const [loading, setLoading] = React.useState(true);
-  const [isLatestVersion, setIsLatestVersion] = React.useState(true);
+  const [isLatestVersion, setIsLatestVersion] = React.useState(false);
   const useAppVersionState = createPersistedState('appVersion');
   const [appVersion, setAppVersion] = useAppVersionState('');
   const [latestVersion, setLatestVersion] = React.useState(appVersion);
 
   function emptyCacheStorage() {
     console.log('Clearing cache and hard reloading...');
+    if (!latestVersion) return;
+    setAppVersion(latestVersion);
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(names => {
