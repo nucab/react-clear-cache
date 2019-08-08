@@ -16,14 +16,14 @@ const ClearCache: React.FC<OwnProps> = props => {
   const [isLatestVersion, setIsLatestVersion] = React.useState(true);
   const useAppVersionState = createPersistedState('appVersion');
   const [appVersion, setAppVersion] = useAppVersionState('');
+  const [latestVersion, setLatestVersion] = React.useState(appVersion);
 
   async function setVersion(version: string) {
     await setAppVersion(version);
   }
 
-  async function emptyCacheStorage(version: string) {
+  const emptyCacheStorage = async (version: string) => {
     console.log('Clearing cache and hard reloading...');
-    if (!appVersion) return;
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(names => {
@@ -33,10 +33,10 @@ const ClearCache: React.FC<OwnProps> = props => {
     }
 
     // clear browser cache and reload page
-    await setVersion(version || appVersion).then(() =>
+    await setVersion(version || latestVersion).then(() =>
       window.location.reload(true)
     );
-  }
+  };
 
   function fetchMeta() {
     fetch(`/meta.json`, {
@@ -49,7 +49,7 @@ const ClearCache: React.FC<OwnProps> = props => {
         const isUpdated = newVersion === currentVersion;
         if (!isUpdated && !auto) {
           console.log('An update is available!');
-          setAppVersion(newVersion);
+          setLatestVersion(newVersion);
           setLoading(false);
           setIsLatestVersion(false);
         } else if (!isUpdated && auto) {
