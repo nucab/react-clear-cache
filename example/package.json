@@ -9,9 +9,7 @@
     "react-dom": "^16.8.4",
     "react-scripts": "^3.0.1"
   },
-  "devDependencies": {
-    "react-clear-cache": "^1.0.14"
-  },
+  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

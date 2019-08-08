@@ -5,25 +5,25 @@ import createPersistedState from 'use-persisted-state';
 
 type OwnProps = {
   duration?: number;
+  auto?: boolean;
   children: any;
-  relativePath?: any;
 };
 
-const ClearCache: React.FC<OwnProps> = ({
-  relativePath = '',
-  duration = 60 * 1000,
-  children
-}) => {
+const ClearCache: React.FC<OwnProps> = props => {
+  const { duration = 60 * 1000, auto = false, children } = props;
+
   const [loading, setLoading] = React.useState(true);
   const [isLatestVersion, setIsLatestVersion] = React.useState(true);
   const useAppVersionState = createPersistedState('appVersion');
   const [appVersion, setAppVersion] = useAppVersionState('');
-  const [latestVersion, setLatestVersion] = React.useState(appVersion);
 
-  function emptyCacheStorage() {
+  async function setVersion(version: string) {
+    await setAppVersion(version);
+  }
+
+  async function emptyCacheStorage(version: string) {
     console.log('Clearing cache and hard reloading...');
-    if (!latestVersion) return;
-    setAppVersion(latestVersion);
+    if (!appVersion) return;
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(names => {
@@ -33,26 +33,27 @@ const ClearCache: React.FC<OwnProps> = ({
     }
 
     // clear browser cache and reload page
-    window.location.reload(true);
+    await setVersion(version || appVersion).then(() =>
+      window.location.reload(true)
+    );
   }
 
   function fetchMeta() {
-    fetch(`${relativePath}/meta.json`, {
+    fetch(`/meta.json`, {
       cache: 'no-store'
     })
       .then(response => response.json())
       .then(meta => {
         const newVersion = meta.version;
         const currentVersion = appVersion;
-        const shouldForceRefresh = newVersion !== currentVersion;
-        if (shouldForceRefresh) {
+        const isUpdated = newVersion === currentVersion;
+        if (!isUpdated && !auto) {
           console.log('An update is available!');
-          if (!appVersion) {
-            setAppVersion(newVersion);
-          }
-          setLatestVersion(newVersion);
+          setAppVersion(newVersion);
           setLoading(false);
           setIsLatestVersion(false);
+        } else if (!isUpdated && auto) {
+          emptyCacheStorage(newVersion);
         } else {
           setIsLatestVersion(true);
           setLoading(false);
@@ -73,7 +74,6 @@ const ClearCache: React.FC<OwnProps> = ({
 
   return children({
     loading,
-    latestVersion,
     isLatestVersion,
     emptyCacheStorage
   });

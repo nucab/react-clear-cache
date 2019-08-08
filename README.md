@@ -36,8 +36,22 @@ const App: React.FC<{}> = () => {
   return (
     <div>
       <ClearCache>
-        {({ loading, latestVersion, isLatestVersion, emptyCacheStorage }) =>
-          <div>App works!</div>
+        {({ isLatestVersion, emptyCacheStorage }) =>
+          <div>
+            {!isLatestVersion && (
+              <p>
+                <a
+                  href="#"
+                  onClick={e => {
+                    e.preventDefault();
+                    emptyCacheStorage();
+                  }}
+                >
+                  Update version
+                </a>
+              </p>
+            )}
+          </div>
         }
       </ClearCache>
     </div>
@@ -53,15 +67,15 @@ export default App;
 
 You can set the duration when to fetch for new updates.
 
-## Render prop function
+### `auto`: boolean
+
+Set to true to auto-reload the page whenever an update is available.
+
+## Render props
 
 ### `loading`: boolean
 
 A boolean that indicates whether the request is in flight
-
-### `latestVersion`: string
-
-A string containing the latest version number of the build.
 
 ### `isLatestVersion`: boolean
 
