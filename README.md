@@ -92,3 +92,15 @@ This function empty the CacheStorage and reloads the page.
 ## License
 
 MIT © [noahjohn9259](https://github.com/noahjohn9259)
+
+## Development
+
+1. In package.json, set `main` to `src/index.js`.
+
+2. Run `npm start` in root directory. It will build and watch if there are changes made.
+
+3. `cd example` and run `npm start`. It will run the demo application.
+
+## Note
+
+If you are done making changes, reset `main` to `dist/index.js` in package.json.

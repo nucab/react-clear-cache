@@ -5,7 +5,7 @@
   "author": "noahjohn9259",
   "license": "MIT",
   "repository": "noahjohn9259/react-clear-cache",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "bin": {
