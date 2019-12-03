@@ -2,6 +2,8 @@
 
 const fs = require('fs');
 const uuidv4 = require('uuid/v4');
+const process = require('process');
+const minimist = require('minimist');
 
 const appVersion = uuidv4();
 
@@ -11,8 +13,11 @@ const jsonData = {
 
 const jsonContent = JSON.stringify(jsonData);
 
+const args = minimist(process.argv.slice(2));
+const filePath = args.path || './public';
+
 fs.writeFile(
-  './public/meta.json',
+  filePath + '/meta.json',
   jsonContent,
   { flag: 'w+', encoding: 'utf8' },
   err => {
