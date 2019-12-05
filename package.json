@@ -29,6 +29,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
+    "minimist": "^1.2.0",
     "use-persisted-state": "^0.3.0",
     "uuid": "^3.3.2"
   },
