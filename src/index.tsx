@@ -1,16 +1,14 @@
-/* eslint-disable */
-
 import * as React from 'react';
 import createPersistedState from 'use-persisted-state';
 
 type OwnProps = {
   duration?: number;
   auto?: boolean;
-  children: any;
+  children?: any;
 };
 
-const ClearCache: React.FC<OwnProps> = props => {
-  const { duration = 60 * 1000, auto = false, children } = props;
+export function useClearCache(props: OwnProps = {}) {
+  const { duration = 60 * 1000, auto = false } = props;
 
   const [loading, setLoading] = React.useState(true);
   const [isLatestVersion, setIsLatestVersion] = React.useState(true);
@@ -71,6 +69,16 @@ const ClearCache: React.FC<OwnProps> = props => {
   React.useEffect(() => {
     fetchMeta();
   }, []);
+
+  return {
+    loading, isLatestVersion, emptyCacheStorage, latestVersion
+  }
+}
+
+const ClearCache: React.FC<OwnProps > = props => {
+  const {loading, isLatestVersion, emptyCacheStorage} = useClearCache(props);
+
+  const { children } = props;
 
   return children({
     loading,
