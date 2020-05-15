@@ -1,19 +1,24 @@
 import * as React from 'react';
 import createPersistedState from 'use-persisted-state';
 
-type OwnProps = {
-  duration?: number;
-  auto?: boolean;
-  children?: any;
+const STORAGE_KEY = 'APP_VERSION';
+
+const defaultProps = {
+  duration: 60 * 1000,
+  auto: false,
+  storageKey: STORAGE_KEY
 };
 
-export function useClearCache(props: OwnProps = {}) {
-  const { duration = 60 * 1000, auto = false } = props;
+type OwnProps = {
+  children?: any;
+} & typeof defaultProps;
 
+export const useClearCache = (props: OwnProps) => {
+  const { duration, auto, storageKey } = { ...defaultProps, ...props };
   const [loading, setLoading] = React.useState(true);
-  const [isLatestVersion, setIsLatestVersion] = React.useState(true);
-  const useAppVersionState = createPersistedState('appVersion');
+  const useAppVersionState = createPersistedState(storageKey);
   const [appVersion, setAppVersion] = useAppVersionState('');
+  const [isLatestVersion, setIsLatestVersion] = React.useState(true);
   const [latestVersion, setLatestVersion] = React.useState(appVersion);
 
   async function setVersion(version: string) {
@@ -21,7 +26,6 @@ export function useClearCache(props: OwnProps = {}) {
   }
 
   const emptyCacheStorage = async (version: string) => {
-    console.log('Clearing cache and hard reloading...');
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(names => {
@@ -49,7 +53,11 @@ export function useClearCache(props: OwnProps = {}) {
           console.log('An update is available!');
           setLatestVersion(newVersion);
           setLoading(false);
-          setIsLatestVersion(false);
+          if (appVersion) {
+            setIsLatestVersion(false);
+          } else {
+            setVersion(newVersion);
+          }
         } else if (!isUpdated && auto) {
           emptyCacheStorage(newVersion);
         } else {
@@ -71,12 +79,15 @@ export function useClearCache(props: OwnProps = {}) {
   }, []);
 
   return {
-    loading, isLatestVersion, emptyCacheStorage, latestVersion
-  }
-}
+    loading,
+    isLatestVersion,
+    emptyCacheStorage,
+    latestVersion
+  };
+};
 
-const ClearCache: React.FC<OwnProps > = props => {
-  const {loading, isLatestVersion, emptyCacheStorage} = useClearCache(props);
+const ClearCache: React.FC<OwnProps> = props => {
+  const { loading, isLatestVersion, emptyCacheStorage } = useClearCache(props);
 
   const { children } = props;
 
