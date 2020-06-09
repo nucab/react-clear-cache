@@ -19,6 +19,17 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
 function __awaiter(thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -60,13 +71,21 @@ function r(e,r,i){void 0===i&&(i=global);var o=React.useRef();React.useEffect(fu
 
 var u={},c=function(t,n,e){return u[t]||(u[t]={callbacks:[],value:e}),u[t].callbacks.push(n),{deregister:function(){var e=u[t].callbacks,r$$1=e.indexOf(n);r$$1>-1&&e.splice(r$$1,1);},emit:function(e){u[t].value!==e&&(u[t].value=e,u[t].callbacks.forEach(function(t){n!==t&&t(e);}));}}};function createPersistedState(u,i){if(void 0===i&&(i=global.localStorage),i){var o=function(t){return {get:function(n,e){var r$$1=t.getItem(n);return null===r$$1?"function"==typeof e?e():e:JSON.parse(r$$1)},set:function(n,e){t.setItem(n,JSON.stringify(e));}}}(i);return function(i){return function(u,i,o){var a=o.get,f=o.set,l=React.useRef(null),s=React.useState(function(){return a(i,u)}),v=s[0],g=s[1];return r("storage",function(t){var n=t.key,e=JSON.parse(t.newValue);n===i&&v!==e&&g(e);}),React.useEffect(function(){return l.current=c(i,g,u),function(){l.current.deregister();}},[]),React.useEffect(function(){f(i,v),l.current.emit(v);},[v]),[v,g]}(i,u,o)}}return React.useState}
 
-/* eslint-disable */
-var ClearCache = function (props) {
-    var _a = props.duration, duration = _a === void 0 ? 60 * 1000 : _a, _b = props.auto, auto = _b === void 0 ? false : _b, children = props.children;
-    var _c = React.useState(true), loading = _c[0], setLoading = _c[1];
+var _this = undefined;
+var STORAGE_KEY = 'APP_VERSION';
+var defaultProps = {
+    duration: 60 * 1000,
+    auto: false,
+    storageKey: STORAGE_KEY,
+    basePath: ''
+};
+var useClearCache = function (props) {
+    var _a = __assign({}, defaultProps, props), duration = _a.duration, auto = _a.auto, storageKey = _a.storageKey, basePath = _a.basePath;
+    var _b = React.useState(true), loading = _b[0], setLoading = _b[1];
+    var useAppVersionState = createPersistedState(storageKey);
+    var _c = useAppVersionState(''), appVersion = _c[0], setAppVersion = _c[1];
     var _d = React.useState(true), isLatestVersion = _d[0], setIsLatestVersion = _d[1];
-    var useAppVersionState = createPersistedState('appVersion');
-    var _e = useAppVersionState(''), appVersion = _e[0], setAppVersion = _e[1];
+    var _e = React.useState(appVersion), latestVersion = _e[0], setLatestVersion = _e[1];
     function setVersion(version) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -79,38 +98,35 @@ var ClearCache = function (props) {
             });
         });
     }
-    function emptyCacheStorage(version) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log('Clearing cache and hard reloading...');
-                        if (!appVersion)
-                            return [2 /*return*/];
-                        if ('caches' in window) {
-                            // Service worker cache should be cleared with caches.delete()
-                            caches.keys().then(function (names) {
-                                // eslint-disable-next-line no-restricted-syntax
-                                for (var _i = 0, names_1 = names; _i < names_1.length; _i++) {
-                                    var name_1 = names_1[_i];
-                                    caches.delete(name_1);
-                                }
-                            });
-                        }
-                        // clear browser cache and reload page
-                        return [4 /*yield*/, setVersion(version || appVersion).then(function () {
-                                return window.location.reload(true);
-                            })];
-                    case 1:
-                        // clear browser cache and reload page
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
+    var emptyCacheStorage = function (version) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if ('caches' in window) {
+                        // Service worker cache should be cleared with caches.delete()
+                        caches.keys().then(function (names) {
+                            // eslint-disable-next-line no-restricted-syntax
+                            for (var _i = 0, names_1 = names; _i < names_1.length; _i++) {
+                                var name_1 = names_1[_i];
+                                caches.delete(name_1);
+                            }
+                        });
+                    }
+                    // clear browser cache and reload page
+                    return [4 /*yield*/, setVersion(version || latestVersion).then(function () {
+                            return window.location.reload(true);
+                        })];
+                case 1:
+                    // clear browser cache and reload page
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
-    }
+    }); };
+    // Replace any last slash with an empty space
+    var baseUrl = basePath.replace(/\/+$/, '') + '/meta.json';
     function fetchMeta() {
-        fetch("/meta.json", {
+        fetch(baseUrl, {
             cache: 'no-store'
         })
             .then(function (response) { return response.json(); })
@@ -120,9 +136,14 @@ var ClearCache = function (props) {
             var isUpdated = newVersion === currentVersion;
             if (!isUpdated && !auto) {
                 console.log('An update is available!');
-                setAppVersion(newVersion);
+                setLatestVersion(newVersion);
                 setLoading(false);
-                setIsLatestVersion(false);
+                if (appVersion) {
+                    setIsLatestVersion(false);
+                }
+                else {
+                    setVersion(newVersion);
+                }
             }
             else if (!isUpdated && auto) {
                 emptyCacheStorage(newVersion);
@@ -142,6 +163,16 @@ var ClearCache = function (props) {
     React.useEffect(function () {
         fetchMeta();
     }, []);
+    return {
+        loading: loading,
+        isLatestVersion: isLatestVersion,
+        emptyCacheStorage: emptyCacheStorage,
+        latestVersion: latestVersion
+    };
+};
+var ClearCache = function (props) {
+    var _a = useClearCache(props), loading = _a.loading, isLatestVersion = _a.isLatestVersion, emptyCacheStorage = _a.emptyCacheStorage;
+    var children = props.children;
     return children({
         loading: loading,
         isLatestVersion: isLatestVersion,
@@ -149,5 +180,6 @@ var ClearCache = function (props) {
     });
 };
 
+exports.useClearCache = useClearCache;
 exports.default = ClearCache;
 //# sourceMappingURL=index.js.map

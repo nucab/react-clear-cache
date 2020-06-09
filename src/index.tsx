@@ -6,7 +6,8 @@ const STORAGE_KEY = 'APP_VERSION';
 const defaultProps = {
   duration: 60 * 1000,
   auto: false,
-  storageKey: STORAGE_KEY
+  storageKey: STORAGE_KEY,
+  basePath: ''
 };
 
 type OwnProps = {
@@ -14,7 +15,7 @@ type OwnProps = {
 } & typeof defaultProps;
 
 export const useClearCache = (props: OwnProps) => {
-  const { duration, auto, storageKey } = { ...defaultProps, ...props };
+  const { duration, auto, storageKey, basePath } = { ...defaultProps, ...props };
   const [loading, setLoading] = React.useState(true);
   const useAppVersionState = createPersistedState(storageKey);
   const [appVersion, setAppVersion] = useAppVersionState('');
@@ -40,8 +41,11 @@ export const useClearCache = (props: OwnProps) => {
     );
   };
 
+  // Replace any last slash with an empty space
+  const baseUrl = basePath.replace(/\/+$/, '') + '/meta.json'
+
   function fetchMeta() {
-    fetch(`/meta.json`, {
+    fetch(baseUrl, {
       cache: 'no-store'
     })
       .then(response => response.json())
