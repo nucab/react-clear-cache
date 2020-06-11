@@ -11,7 +11,7 @@ declare type OwnProps = {
 export declare const useClearCache: (props?: OwnProps | undefined) => {
     loading: boolean;
     isLatestVersion: boolean;
-    emptyCacheStorage: (version: string) => Promise<void>;
+    emptyCacheStorage: (version?: string | undefined) => Promise<void>;
     latestVersion: string;
 };
 declare const ClearCache: React.FC<OwnProps>;

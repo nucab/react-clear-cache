@@ -179,7 +179,6 @@ var ClearCache = function (props) {
         emptyCacheStorage: emptyCacheStorage
     });
 };
-//# sourceMappingURL=index.js.map
 
 exports.useClearCache = useClearCache;
 exports.default = ClearCache;
