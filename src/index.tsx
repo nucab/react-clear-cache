@@ -14,7 +14,7 @@ type OwnProps = {
   children?: any;
 } & typeof defaultProps;
 
-export const useClearCache = (props: OwnProps) => {
+export const useClearCache = (props?: OwnProps) => {
   const { duration, auto, storageKey, basePath } = { ...defaultProps, ...props };
   const [loading, setLoading] = React.useState(true);
   const useAppVersionState = createPersistedState(storageKey);
@@ -90,7 +90,7 @@ export const useClearCache = (props: OwnProps) => {
   };
 };
 
-const ClearCache: React.FC<OwnProps> = props => {
+const ClearCache: React.FC<OwnProps> = (props: OwnProps) => {
   const { loading, isLatestVersion, emptyCacheStorage } = useClearCache(props);
 
   const { children } = props;
