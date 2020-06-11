@@ -8,7 +8,7 @@ declare const defaultProps: {
 declare type OwnProps = {
     children?: any;
 } & typeof defaultProps;
-export declare const useClearCache: (props: OwnProps) => {
+export declare const useClearCache: (props?: OwnProps | undefined) => {
     loading: boolean;
     isLatestVersion: boolean;
     emptyCacheStorage: (version: string) => Promise<void>;
