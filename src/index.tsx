@@ -26,7 +26,7 @@ export const useClearCache = (props?: OwnProps) => {
     await setAppVersion(version);
   }
 
-  const emptyCacheStorage = async (version: string) => {
+  const emptyCacheStorage = async (version?: string) => {
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       caches.keys().then(names => {
