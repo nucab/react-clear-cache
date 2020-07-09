@@ -9,11 +9,11 @@ declare type OwnProps = {
   children?: any;
 } & typeof defaultProps;
 export declare const useClearCache: (
-  props: OwnProps
+  props?: OwnProps
 ) => Partial<{
   loading: boolean;
   isLatestVersion: boolean;
-  emptyCacheStorage: (version: string) => Promise<void>;
+  emptyCacheStorage: (version?: string) => Promise<void>;
   latestVersion: string;
 }>;
 declare const ClearCache: React.FC<OwnProps>;
