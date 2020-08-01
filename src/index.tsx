@@ -7,7 +7,7 @@ const defaultProps = {
   duration: 60 * 1000,
   auto: false,
   storageKey: STORAGE_KEY,
-  basePath: '',
+  basePath: ''
 };
 
 type OwnProps = {
@@ -17,7 +17,7 @@ type OwnProps = {
 export const useClearCache = (props?: OwnProps) => {
   const { duration, auto, storageKey, basePath } = {
     ...defaultProps,
-    ...props,
+    ...props
   };
   const [loading, setLoading] = React.useState(true);
   const useAppVersionState = createPersistedState(storageKey);
@@ -32,7 +32,7 @@ export const useClearCache = (props?: OwnProps) => {
   const emptyCacheStorage = async (version?: string) => {
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
-      caches.keys().then((names) => {
+      caches.keys().then(names => {
         // eslint-disable-next-line no-restricted-syntax
         for (const name of names) caches.delete(name);
       });
@@ -48,30 +48,34 @@ export const useClearCache = (props?: OwnProps) => {
   const baseUrl = basePath.replace(/\/+$/, '') + '/meta.json';
 
   function fetchMeta() {
-    fetch(baseUrl, {
-      cache: 'no-store',
-    })
-      .then((response) => response.json())
-      .then((meta) => {
-        const newVersion = meta.version;
-        const currentVersion = appVersion;
-        const isUpdated = newVersion === currentVersion;
-        if (!isUpdated && !auto) {
-          console.log('An update is available!');
-          setLatestVersion(newVersion);
-          setLoading(false);
-          if (appVersion) {
-            setIsLatestVersion(false);
+    try {
+      fetch(baseUrl, {
+        cache: 'no-store'
+      })
+        .then(response => response.json())
+        .then(meta => {
+          const newVersion = meta.version;
+          const currentVersion = appVersion;
+          const isUpdated = newVersion === currentVersion;
+          if (!isUpdated && !auto) {
+            console.log('An update is available!');
+            setLatestVersion(newVersion);
+            setLoading(false);
+            if (appVersion) {
+              setIsLatestVersion(false);
+            } else {
+              setVersion(newVersion);
+            }
+          } else if (!isUpdated && auto) {
+            emptyCacheStorage(newVersion);
           } else {
-            setVersion(newVersion);
+            setIsLatestVersion(true);
+            setLoading(false);
           }
-        } else if (!isUpdated && auto) {
-          emptyCacheStorage(newVersion);
-        } else {
-          setIsLatestVersion(true);
-          setLoading(false);
-        }
-      });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   React.useEffect(() => {
@@ -89,11 +93,11 @@ export const useClearCache = (props?: OwnProps) => {
     loading,
     isLatestVersion,
     emptyCacheStorage,
-    latestVersion,
+    latestVersion
   };
 };
 
-const ClearCache: React.FC<OwnProps> = (props) => {
+const ClearCache: React.FC<OwnProps> = props => {
   const { loading, isLatestVersion, emptyCacheStorage } = useClearCache(props);
 
   const { children } = props;
@@ -101,7 +105,7 @@ const ClearCache: React.FC<OwnProps> = (props) => {
   return children({
     loading,
     isLatestVersion,
-    emptyCacheStorage,
+    emptyCacheStorage
   });
 };
 
