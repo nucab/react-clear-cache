@@ -58,7 +58,6 @@ export const useClearCache = (props?: OwnProps) => {
           const currentVersion = appVersion;
           const isUpdated = newVersion === currentVersion;
           if (!isUpdated && !auto) {
-            console.log('An update is available!');
             setLatestVersion(newVersion);
             setLoading(false);
             if (appVersion) {
