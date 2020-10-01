@@ -32,16 +32,13 @@ export const useClearCache = (props?: OwnProps) => {
   const emptyCacheStorage = async (version?: string) => {
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
-      caches.keys().then(names => {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const name of names) caches.delete(name);
-      });
+      const cacheKeys = await window.caches.keys();
+      await Promise.all(cacheKeys.map(window.caches.delete));
     }
 
     // clear browser cache and reload page
-    await setVersion(version || latestVersion).then(() =>
-      window.location.reload(true)
-    );
+    await setVersion(version || latestVersion);
+    window.location.reload(true);
   };
 
   // Replace any last slash with an empty space
