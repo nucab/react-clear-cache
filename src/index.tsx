@@ -7,7 +7,8 @@ const defaultProps = {
   duration: 60 * 1000,
   auto: false,
   storageKey: STORAGE_KEY,
-  basePath: ''
+  basePath: '',
+  filename: 'meta.json',
 };
 
 type OwnProps = {
@@ -15,7 +16,7 @@ type OwnProps = {
 } & typeof defaultProps;
 
 export const useClearCache = (props?: OwnProps) => {
-  const { duration, auto, storageKey, basePath } = {
+  const { duration, auto, storageKey, basePath,, filename } = {
     ...defaultProps,
     ...props
   };
@@ -45,7 +46,7 @@ export const useClearCache = (props?: OwnProps) => {
   };
 
   // Replace any last slash with an empty space
-  const baseUrl = basePath.replace(/\/+$/, '') + '/meta.json';
+  const baseUrl = basePath.replace(/\/+$/, '') + '/' + filename;
 
   function fetchMeta() {
     try {
