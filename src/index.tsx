@@ -12,8 +12,13 @@ const defaultProps = {
 };
 
 type OwnProps = {
+  duration?: number;
+  auto?: boolean;
+  storageKey?: string;
+  basePath?: string;
+  filename?: string;
   children?: any;
-} & typeof defaultProps;
+};
 
 export const useClearCache = (props?: OwnProps) => {
   const { duration, auto, storageKey, basePath, filename } = {
