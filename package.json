@@ -32,6 +32,7 @@
     "release:patch": "npm version patch && git push origin && git push origin --tags"
   },
   "dependencies": {
+    "minimist": "^1.2.5",
     "use-persisted-state": "^0.3.0",
     "uuid": "^3.3.2"
   },
