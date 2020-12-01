@@ -3,13 +3,11 @@ import { useClearCacheCtx } from 'react-clear-cache';
 
 import logo from './logo.svg';
 import './App.css';
-import Test from './Test';
 
 const App = () => {
   const { isLatestVersion, emptyCacheStorage } = useClearCacheCtx();
   return (
     <div className="App">
-      <Test />
       <header className="App-header">
         <p>
           <img src={logo} className="App-logo" alt="logo" />
@@ -20,7 +18,7 @@ const App = () => {
         {!isLatestVersion && (
           <p>
             <a
-              href="#"
+              href="#clear"
               onClick={e => {
                 e.preventDefault();
                 emptyCacheStorage();
