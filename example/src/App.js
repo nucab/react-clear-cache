@@ -5,7 +5,7 @@ import logo from './logo.svg';
 import './App.css';
 
 const App = () => {
-  const { isLatestVersion, emptyCacheStorage } = useClearCacheCtx();
+  const { isLatestVersion } = useClearCacheCtx();
   return (
     <div className="App">
       <header className="App-header">

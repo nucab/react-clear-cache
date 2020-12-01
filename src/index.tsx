@@ -24,21 +24,21 @@ type Result = {
   loading: boolean,
   isLatestVersion: boolean;
   emptyCacheStorage: (version?:string | undefined) => Promise<void>
-}
+} 
 
+const ClearCacheContext = React.createContext<Result | null>(null);
 
-function createCtx<A extends {} | null>() {
-  const ctx = React.createContext<A | undefined>(undefined);
-  function useCtx() {
-    const c = React.useContext(ctx);
-    if (c === undefined)
-      throw new Error('useCtx must be inside a Provider with a value');
-    return c;
-  }
-  return [useCtx, ctx.Provider] as const;
-}
+export const ClearCacheProvider: React.FC<OwnProps> = props => {
+  const { children, ...otherProps } = props;
+  const result = useClearCache(otherProps);
+  return (
+    <ClearCacheContext.Provider value={result}>
+      {children}
+    </ClearCacheContext.Provider>
+  );
+};
 
-export const [useClearCacheCtx, ClearCacheProvider] = createCtx<Result>();
+export const useClearCacheCtx = () => React.useContext(ClearCacheContext);
 
 export const useClearCache = (props?: OwnProps) => {
   const { duration, auto, storageKey, basePath, filename } = {
