@@ -1,20 +1,21 @@
 import * as React from 'react';
-import { useClearCache } from 'react-clear-cache';
+import { useClearCacheCtx } from 'react-clear-cache';
 
 import logo from './logo.svg';
 import './App.css';
+import Test from './Test';
 
 const App = () => {
-  const { isLatestVersion, emptyCacheStorage } = useClearCache({ duration: 5000 });
+  const { isLatestVersion, emptyCacheStorage } = useClearCacheCtx();
   return (
     <div className="App">
+      <Test />
       <header className="App-header">
         <p>
           <img src={logo} className="App-logo" alt="logo" />
         </p>
         <p>
-          <strong>Is latest version</strong>:{' '}
-          {isLatestVersion ? 'Yes' : 'No'}
+          <strong>Is latest version</strong>: {isLatestVersion ? 'Yes' : 'No'}
         </p>
         {!isLatestVersion && (
           <p>

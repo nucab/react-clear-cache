@@ -27,12 +27,48 @@ This will generate `meta.json` file. This will have the version key with the lat
 
 ## Usage
 
+### Using `Context API`:
+
+```tsx
+import * as React from 'react';
+
+import { ClearCacheProvider, useClearCacheCtx } from 'react-clear-cache';
+
+const App: React.FC<{}> = () => {
+  const { isLatestVersion, emptyCacheStorage } = useClearCacheCtx();
+  return (
+    <div>
+      {!isLatestVersion && (
+        <p>
+          <a
+            href="#"
+            onClick={e => {
+              e.preventDefault();
+              emptyCacheStorage();
+            }}
+          >
+            Update version
+          </a>
+        </p>
+      )}
+    </div>
+  );
+};
+
+ReactDOM.render(
+  <ClearCacheProvider duration={5000}>
+    <App />
+  </ClearCacheProvider>,
+  document.getElementById('root')
+);
+```
+
 ### Using `render props`:
 
 ```tsx
-import * as React from "react";
+import * as React from 'react';
 
-import ClearCache from "react-clear-cache";
+import ClearCache from 'react-clear-cache';
 
 const App: React.FC<{}> = () => {
   return (
@@ -66,9 +102,9 @@ export default App;
 ### Using `hooks`:
 
 ```tsx
-import * as React from "react";
+import * as React from 'react';
 
-import { useClearCache } from "react-clear-cache";
+import { useClearCache } from 'react-clear-cache';
 
 const App: React.FC<{}> = () => {
   const { isLatestVersion, emptyCacheStorage } = useClearCache();

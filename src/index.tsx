@@ -20,6 +20,32 @@ type OwnProps = {
   children?: any;
 };
 
+type Result = {
+  loading: boolean,
+  isLatestVersion: boolean;
+  emptyCacheStorage: (version?:string | undefined) => Promise<void>
+} | null
+
+const ClearCacheContext = React.createContext<Result>(null);
+
+export const ClearCacheProvider: React.FC<OwnProps> = props => {
+  const { children } = props;
+  const { loading, isLatestVersion, emptyCacheStorage } = useClearCache(props);
+  return (
+    <ClearCacheContext.Provider
+      value={{
+        loading,
+        isLatestVersion,
+        emptyCacheStorage
+      }}
+    >
+      {children}
+    </ClearCacheContext.Provider>
+  );
+};
+
+export const useClearCacheCtx = () => React.useContext(ClearCacheContext);
+
 export const useClearCache = (props?: OwnProps) => {
   const { duration, auto, storageKey, basePath, filename } = {
     ...defaultProps,
