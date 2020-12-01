@@ -26,7 +26,7 @@ type Result = {
   emptyCacheStorage: (version?:string | undefined) => Promise<void>
 } 
 
-const ClearCacheContext = React.createContext<Result | null>(null);
+const ClearCacheContext = React.createContext<Result>({} as Result);
 
 export const ClearCacheProvider: React.FC<OwnProps> = props => {
   const { children, ...otherProps } = props;
