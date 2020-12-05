@@ -6,6 +6,11 @@
 
 ## Demo
 
+- Fetched on window focus
+- Stop fetching on window blur
+
+## Demo
+
 See [demo](https://noahjohn9259.github.io/react-clear-cache/)
 
 ## Install
