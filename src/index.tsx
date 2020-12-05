@@ -40,6 +40,8 @@ export const ClearCacheProvider: React.FC<OwnProps> = props => {
 
 export const useClearCacheCtx = () => React.useContext(ClearCacheContext);
 
+let fetchCacheTimeout: any;
+
 export const useClearCache = (props?: OwnProps) => {
   const { duration, auto, storageKey, basePath, filename } = {
     ...defaultProps,
@@ -104,11 +106,31 @@ export const useClearCache = (props?: OwnProps) => {
   }
 
   React.useEffect(() => {
-    const fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
+    fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
     return () => {
       clearInterval(fetchCacheTimeout);
     };
   }, [loading]);
+
+  const onFocus = React.useRef(() => {});
+  const onBlur = React.useRef(() => {});
+
+  onFocus.current = () => {
+    fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
+  };
+
+  onBlur.current = () => {
+    clearInterval(fetchCacheTimeout);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('focus', onFocus.current);
+    window.addEventListener('blur', onBlur.current);
+    () => {
+      window.removeEventListener('focus', onFocus.current);
+      window.removeEventListener('blur', onBlur.current);
+    };
+  });
 
   React.useEffect(() => {
     fetchMeta();
