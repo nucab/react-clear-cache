@@ -109,25 +109,27 @@ export const useClearCache = (props?: OwnProps) => {
     };
   }, [loading]);
 
-  const onFocus = React.useRef(() => {});
-  const onBlur = React.useRef(() => {});
+  const startVersionCheck = React.useRef(() => {});
+  const stopVersionCheck = React.useRef(() => {});
 
-  onFocus.current = () => {
-    fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
+  startVersionCheck.current = () => {
+    if (window.navigator.onLine) {
+      fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
+    }
   };
 
-  onBlur.current = () => {
+  stopVersionCheck.current = () => {
     clearInterval(fetchCacheTimeout);
   };
 
   React.useEffect(() => {
-    window.addEventListener('focus', onFocus.current);
-    window.addEventListener('blur', onBlur.current);
+    window.addEventListener('focus', startVersionCheck.current);
+    window.addEventListener('blur', stopVersionCheck.current);
     () => {
-      window.removeEventListener('focus', onFocus.current);
-      window.removeEventListener('blur', onBlur.current);
+      window.removeEventListener('focus', startVersionCheck.current);
+      window.removeEventListener('blur', stopVersionCheck.current);
     };
-  });
+  }, []);
 
   React.useEffect(() => {
     fetchMeta();
