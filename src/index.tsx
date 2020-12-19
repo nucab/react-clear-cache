@@ -66,7 +66,7 @@ export const useClearCache = (props?: OwnProps) => {
 
     // clear browser cache and reload page
     await setVersion(version || latestVersion);
-    window.location.reload(true);
+    window.location.replace(window.location.pathname + window.location.search + window.location.hash);
   };
 
   // Replace any last slash with an empty space
