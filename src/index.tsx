@@ -24,7 +24,7 @@ type Result = {
   loading: boolean,
   isLatestVersion: boolean;
   emptyCacheStorage: (version?:string | undefined) => Promise<void>
-} 
+}
 
 const ClearCacheContext = React.createContext<Result>({} as Result);
 
@@ -61,12 +61,14 @@ export const useClearCache = (props?: OwnProps) => {
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       const cacheKeys = await window.caches.keys();
-      await Promise.all(cacheKeys.map(window.caches.delete));
+      await Promise.all(cacheKeys.map(key => {
+        window.caches.delete(key)
+      }));
     }
 
     // clear browser cache and reload page
     await setVersion(version || latestVersion);
-    window.location.reload(true);
+    window.location.replace(window.location.href);
   };
 
   // Replace any last slash with an empty space
