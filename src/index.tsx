@@ -61,7 +61,11 @@ export const useClearCache = (props?: OwnProps) => {
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
       const cacheKeys = await window.caches.keys();
-      await Promise.all(cacheKeys.map(window.caches.delete));
+      await Promise.all(
+        cacheKeys.map(key => {
+          window.caches.delete(key)
+        })
+      );
     }
 
     // clear browser cache and reload page
