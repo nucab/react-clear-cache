@@ -98,7 +98,9 @@ export const useClearCache = (props?: OwnProps) => {
             setIsLatestVersion(true);
             setLoading(false);
           }
-        });
+        }).catch(err => {
+          console.error(err);
+        })
     } catch (err) {
       console.error(err);
     }
