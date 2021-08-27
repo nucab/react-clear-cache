@@ -74,7 +74,7 @@ export const useClearCache = (props?: OwnProps) => {
   // Replace any last slash with an empty space
   const baseUrl = basePath.replace(/\/+$/, '') + '/' + filename;
 
-  function fetchMeta() {
+  function fetchMeta(cb?: (needsUpdate: boolean) => void) {
     try {
       fetch(baseUrl, {
         cache: 'no-store'
@@ -83,8 +83,8 @@ export const useClearCache = (props?: OwnProps) => {
         .then(meta => {
           const newVersion = meta.version;
           const currentVersion = appVersion;
-          const isUpdated = newVersion === currentVersion;
-          if (!isUpdated && !auto) {
+          const isUpToDate = newVersion === currentVersion;
+          if (!isUpToDate && !auto) {
             setLatestVersion(newVersion);
             setLoading(false);
             if (appVersion) {
@@ -92,12 +92,13 @@ export const useClearCache = (props?: OwnProps) => {
             } else {
               setVersion(newVersion);
             }
-          } else if (!isUpdated && auto) {
+          } else if (!isUpToDate && auto) {
             emptyCacheStorage(newVersion);
           } else {
             setIsLatestVersion(true);
             setLoading(false);
           }
+          if (cb) cb(!isUpToDate && !auto);
         });
     } catch (err) {
       console.error(err);
@@ -116,6 +117,7 @@ export const useClearCache = (props?: OwnProps) => {
 
   startVersionCheck.current = () => {
     if (window.navigator.onLine) {
+      fetchMeta();
       fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
     }
   };
@@ -123,6 +125,8 @@ export const useClearCache = (props?: OwnProps) => {
   stopVersionCheck.current = () => {
     clearInterval(fetchCacheTimeout);
   };
+
+  const fetchLatestVersion = React.useCallback((cb?) => fetchMeta(cb), []);
 
   React.useEffect(() => {
     window.addEventListener('focus', startVersionCheck.current);
@@ -140,19 +144,26 @@ export const useClearCache = (props?: OwnProps) => {
   return {
     loading,
     isLatestVersion,
+    fetchLatestVersion,
     emptyCacheStorage,
     latestVersion
   };
 };
 
 const ClearCache: React.FC<OwnProps> = props => {
-  const { loading, isLatestVersion, emptyCacheStorage } = useClearCache(props);
+  const {
+    loading,
+    isLatestVersion,
+    fetchLatestVersion,
+    emptyCacheStorage
+  } = useClearCache(props);
 
   const { children } = props;
 
   return children({
     loading,
     isLatestVersion,
+    fetchLatestVersion,
     emptyCacheStorage
   });
 };

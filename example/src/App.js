@@ -5,7 +5,11 @@ import logo from './logo.svg';
 import './App.css';
 
 const App = () => {
-  const { isLatestVersion, emptyCacheStorage } = useClearCacheCtx();
+  const {
+    isLatestVersion,
+    fetchLatestVersion,
+    emptyCacheStorage
+  } = useClearCacheCtx();
   return (
     <div className="App">
       <header className="App-header">
@@ -15,9 +19,23 @@ const App = () => {
         <p>
           <strong>Is latest version</strong>: {isLatestVersion ? 'Yes' : 'No'}
         </p>
-        {!isLatestVersion && (
-          <p>
+        <p>
+          {isLatestVersion ? (
             <a
+              className="App-link"
+              href="#clear"
+              onClick={e => {
+                e.preventDefault();
+                fetchLatestVersion(needsUpdate =>
+                  console.log('Needs update?', needsUpdate)
+                );
+              }}
+            >
+              Fetch latest version manually
+            </a>
+          ) : (
+            <a
+              className="App-link"
               href="#clear"
               onClick={e => {
                 e.preventDefault();
@@ -26,10 +44,10 @@ const App = () => {
             >
               Update version
             </a>
-          </p>
-        )}
+          )}
+        </p>
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Edit <code>src/App.js</code> and save to reload.
         </p>
       </header>
     </div>
