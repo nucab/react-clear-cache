@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
 import createPersistedState from 'use-persisted-state';
 
 const STORAGE_KEY = 'APP_VERSION';
@@ -26,9 +27,9 @@ type Result = {
   emptyCacheStorage: (version?:string | undefined) => Promise<void>
 }
 
-const ClearCacheContext = React.createContext<Result>({} as Result);
+const ClearCacheContext = createContext<Result>({} as Result);
 
-export const ClearCacheProvider: React.FC<OwnProps> = props => {
+export const ClearCacheProvider: FC<OwnProps> = props => {
   const { children, ...otherProps } = props;
   const result = useClearCache(otherProps);
   return (
@@ -38,7 +39,7 @@ export const ClearCacheProvider: React.FC<OwnProps> = props => {
   );
 };
 
-export const useClearCacheCtx = () => React.useContext(ClearCacheContext);
+export const useClearCacheCtx = () => useContext(ClearCacheContext);
 
 let fetchCacheTimeout: any;
 
@@ -47,11 +48,11 @@ export const useClearCache = (props?: OwnProps) => {
     ...defaultProps,
     ...props
   };
-  const [loading, setLoading] = React.useState(true);
-  const useAppVersionState = createPersistedState(storageKey);
+  const [loading, setLoading] = useState(true);
+  const useAppVersionState = createPersistedState<string>(storageKey);
   const [appVersion, setAppVersion] = useAppVersionState('');
-  const [isLatestVersion, setIsLatestVersion] = React.useState(true);
-  const [latestVersion, setLatestVersion] = React.useState(appVersion);
+  const [isLatestVersion, setIsLatestVersion] = useState(true);
+  const [latestVersion, setLatestVersion] = useState(appVersion);
 
   async function setVersion(version: string) {
     await setAppVersion(version);
@@ -104,15 +105,15 @@ export const useClearCache = (props?: OwnProps) => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
     return () => {
       clearInterval(fetchCacheTimeout);
     };
   }, [loading]);
 
-  const startVersionCheck = React.useRef(() => {});
-  const stopVersionCheck = React.useRef(() => {});
+  const startVersionCheck = useRef(() => {});
+  const stopVersionCheck = useRef(() => {});
 
   startVersionCheck.current = () => {
     if (window.navigator.onLine) {
@@ -124,7 +125,7 @@ export const useClearCache = (props?: OwnProps) => {
     clearInterval(fetchCacheTimeout);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('focus', startVersionCheck.current);
     window.addEventListener('blur', stopVersionCheck.current);
     () => {
@@ -133,7 +134,7 @@ export const useClearCache = (props?: OwnProps) => {
     };
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchMeta();
   }, []);
 
@@ -145,7 +146,7 @@ export const useClearCache = (props?: OwnProps) => {
   };
 };
 
-const ClearCache: React.FC<OwnProps> = props => {
+const ClearCache: FC<OwnProps> = props => {
   const { loading, isLatestVersion, emptyCacheStorage } = useClearCache(props);
 
   const { children } = props;
