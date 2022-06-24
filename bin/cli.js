@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const mkdirp = require('mkdirp');
 const getDirName = require('path').dirname;
 const parseArgs = require('minimist')
 const uuidv4 = require('uuid/v4');
@@ -34,7 +33,7 @@ writeFile(
 );
 
 function writeFile(path, contents, cb) {
-  mkdirp(getDirName(path), err => {
+  fs.mkdir(getDirName(path), { recursive: true }, err => {
     if (err) return cb(err);
     fs.writeFile(path, contents, cb);
   });
