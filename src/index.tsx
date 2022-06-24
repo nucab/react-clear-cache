@@ -55,7 +55,7 @@ export const useClearCache = (props?: OwnProps) => {
   const [latestVersion, setLatestVersion] = useState(appVersion);
 
   async function setVersion(version: string) {
-    await setAppVersion(version);
+    return setAppVersion(version);
   }
 
   const emptyCacheStorage = async (version?: string) => {
