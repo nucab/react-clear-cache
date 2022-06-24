@@ -1,6 +1,6 @@
-# react-clear-cache
+# react-clear-cache-v2
 
-> A component to manage application updates.
+> A component to manage application updates with an enhancement to the [react-clear-cache](https://www.npmjs.com/package/react-clear-cache) package.
 
 [![NPM](https://img.shields.io/npm/v/react-clear-cache.svg)](https://www.npmjs.com/package/react-clear-cache) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -16,17 +16,20 @@ See [demo](https://noahjohn9259.github.io/react-clear-cache/)
 ## Install
 
 ```bash
-$ npm install --save react-clear-cache
+npm install react-clear-cache
+```
+
+```bash
+yarn add react-clear-cache
 ```
 
 ## Add script in package.json
 
 This will generate `meta.json` file. This will have the version key with the latest build.
 
-```bash
+```json
 {
-  "prebuild": "npm run generate-build-meta",
-  "generate-build-meta": "./node_modules/react-clear-cache/bin/cli.js"
+  "prebuild": "react-clear-cache-v2 --destination=<path of your dist folder>"
 }
 ```
 
@@ -47,7 +50,7 @@ const App: React.FC<{}> = () => {
         <p>
           <a
             href="#"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               emptyCacheStorage();
             }}
@@ -85,7 +88,7 @@ const App: React.FC<{}> = () => {
               <p>
                 <a
                   href="#"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
                     emptyCacheStorage();
                   }}
@@ -119,7 +122,7 @@ const App: React.FC<{}> = () => {
         <p>
           <a
             href="#"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               emptyCacheStorage();
             }}
