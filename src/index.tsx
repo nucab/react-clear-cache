@@ -2,12 +2,16 @@ import type { FC, PropsWithChildren } from 'react';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import createPersistedState from 'use-persisted-state-v2';
 
-const STORAGE_KEY = 'APP_VERSION';
-
 type OwnProps = {
   /**
+   * A boolean that indicates whether meta file is fetched or not.
+   * @defaultValue `true`
+   */
+  enabled: boolean;
+
+  /**
    * You can set the duration (ms) when to fetch for new updates.
-   * @defaultValue `6000`
+   * @defaultValue `60000`
    */
   duration: number;
 
@@ -37,9 +41,10 @@ type OwnProps = {
 };
 
 const defaultProps: OwnProps = {
+  enabled: true,
   duration: 60 * 1000,
   auto: false,
-  storageKey: STORAGE_KEY,
+  storageKey: 'APP_VERSION',
   basePath: '',
   filename: 'meta.json',
 };
@@ -78,7 +83,7 @@ export const useClearCacheCtx = () => useContext(ClearCacheContext);
 let fetchCacheTimeout: any;
 
 export const useClearCache = (props?: OwnProps) => {
-  const { duration, auto, storageKey, basePath, filename } = {
+  const { enabled, duration, auto, storageKey, basePath, filename } = {
     ...defaultProps,
     ...props,
   };
@@ -142,11 +147,16 @@ export const useClearCache = (props?: OwnProps) => {
   }
 
   useEffect(() => {
-    fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
+    if (enabled) {
+      fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
+    }
+
     return () => {
-      clearInterval(fetchCacheTimeout);
+      if (enabled) {
+        clearInterval(fetchCacheTimeout);
+      }
     };
-  }, [loading]);
+  }, [enabled, loading]);
 
   const startVersionCheck = useRef(() => {});
   const stopVersionCheck = useRef(() => {});
