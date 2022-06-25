@@ -2616,7 +2616,7 @@ __metadata:
     rollup-plugin-postcss: 1.6.2
     tslib: 2.4.0
     typescript: 4.7.4
-    use-persisted-state-v2: 1.1.1
+    use-persisted-state-v2: 1.1.2
     uuid: 8.3.2
   peerDependencies:
     prop-types: ^15.8.1
@@ -3146,14 +3146,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-persisted-state-v2@npm:1.1.1":
-  version: 1.1.1
-  resolution: "use-persisted-state-v2@npm:1.1.1"
+"use-persisted-state-v2@npm:1.1.2":
+  version: 1.1.2
+  resolution: "use-persisted-state-v2@npm:1.1.2"
   dependencies:
     "@use-it/event-listener": 0.1.7
   peerDependencies:
     react: ^18
-  checksum: 28d171adc3b3727079f465c7aa133481398868d10fa59a0eca9337faad571b2102042ad34c1dd7afee15166c02a5e692abd4cf942b681b0ad20e93a22720bddb
+  checksum: 6cb4e00e30a3c0406d0341bc3964c41da51f5d3d86823fec76b42d3990ec590f8bdcf4ab0819e732e84b7668b916309b218d939d8a4d05a605f01662d946e265
   languageName: node
   linkType: hard
 
