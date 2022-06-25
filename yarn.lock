@@ -215,16 +215,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/use-persisted-state@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@types/use-persisted-state@npm:0.3.1"
-  dependencies:
-    "@types/react": "*"
-  checksum: 7adccfa371a1a1d29d65011173c5678c44507ea94b13407965169bdb63fea096a9efbb8447c4b9884c81f7eee02faa35b284ab8097f9ee87955e383f98f41562
-  languageName: node
-  linkType: hard
-
-"@use-it/event-listener@npm:^0.1.2":
+"@use-it/event-listener@npm:0.1.7":
   version: 0.1.7
   resolution: "@use-it/event-listener@npm:0.1.7"
   peerDependencies:
@@ -2616,7 +2607,6 @@ __metadata:
     "@types/jest": ^28.1.3
     "@types/react": ^18.0.14
     "@types/react-dom": ^18.0.5
-    "@types/use-persisted-state": ^0.3.1
     cross-env: 7.0.3
     gh-pages: 4.0.0
     minimist: 1.2.6
@@ -2626,7 +2616,7 @@ __metadata:
     rollup-plugin-postcss: 1.6.2
     tslib: 2.4.0
     typescript: 4.7.4
-    use-persisted-state: 0.3.3
+    use-persisted-state-v2: 1.1.0
     uuid: 8.3.2
   peerDependencies:
     prop-types: ^15.8.1
@@ -3156,14 +3146,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-persisted-state@npm:0.3.3":
-  version: 0.3.3
-  resolution: "use-persisted-state@npm:0.3.3"
+"use-persisted-state-v2@npm:1.1.0":
+  version: 1.1.0
+  resolution: "use-persisted-state-v2@npm:1.1.0"
   dependencies:
-    "@use-it/event-listener": ^0.1.2
+    "@use-it/event-listener": 0.1.7
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0
-  checksum: ab637e526180aca1b487f7da38926b864d4ad524b28176e9e2ce58c441bc49f29c91e324eeb75ad579f8468c17f990793c0fff69f55b138d1be9ed8ddb79ecee
+    react: ^18
+  checksum: c6f911131df2c55647f30d17d82352ce290444e9207bcd15f1d1fc5c7a414b2db1b0d620185fa43c98dbb4839f3ffcfabf61cc33ca94794225f1093f20798f09
   languageName: node
   linkType: hard
 
