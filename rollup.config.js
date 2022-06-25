@@ -30,7 +30,11 @@ export default {
     }),
     url(),
     resolve(),
-    typescript(),
+    typescript({
+      tsconfig: './tsconfig.json',
+      declaration: true,
+      declarationDir: '.',
+    }),
     commonjs(),
   ],
 };

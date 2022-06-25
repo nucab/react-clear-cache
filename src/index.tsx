@@ -1,10 +1,42 @@
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import createPersistedState from 'use-persisted-state-v2';
 
 const STORAGE_KEY = 'APP_VERSION';
 
-const defaultProps = {
+type OwnProps = {
+  /**
+   * You can set the duration (ms) when to fetch for new updates.
+   * @defaultValue `6000`
+   */
+  duration: number;
+
+  /**
+   * Set to true to auto-reload the page whenever an update is available.
+   * @defaultValue `false`
+   */
+  auto: boolean;
+
+  /**
+   * The key to store the latest version in local storage.
+   * @defaultValue `APP_VERSION`
+   */
+  storageKey: string;
+
+  /**
+   * The base path to the meta file.
+   * @defaultValue `''`
+   */
+  basePath: string;
+
+  /**
+   * The filename of the meta file
+   * @defaultValue `meta.json`
+   */
+  filename: string;
+};
+
+const defaultProps: OwnProps = {
   duration: 60 * 1000,
   auto: false,
   storageKey: STORAGE_KEY,
@@ -12,24 +44,26 @@ const defaultProps = {
   filename: 'meta.json',
 };
 
-type OwnProps = {
-  duration?: number;
-  auto?: boolean;
-  storageKey?: string;
-  basePath?: string;
-  filename?: string;
-  children?: any;
-};
-
 type Result = {
+  /**
+   * A boolean that indicates whether the request is in flight
+   */
   loading: boolean;
+
+  /**
+   * A boolean that indicates if the user has the latest version.
+   */
   isLatestVersion: boolean;
+
+  /**
+   * This function empty the CacheStorage and reloads the page.
+   */
   emptyCacheStorage: (version?: string | undefined) => Promise<void>;
 };
 
 const ClearCacheContext = createContext<Result>({} as Result);
 
-export const ClearCacheProvider: FC<OwnProps> = (props) => {
+export const ClearCacheProvider: FC<PropsWithChildren<OwnProps>> = (props) => {
   const { children, ...otherProps } = props;
   const result = useClearCache(otherProps);
   return (
@@ -144,20 +178,5 @@ export const useClearCache = (props?: OwnProps) => {
     loading,
     isLatestVersion,
     emptyCacheStorage,
-    latestVersion,
-  };
+  } as Result;
 };
-
-const ClearCache: FC<OwnProps> = (props) => {
-  const { loading, isLatestVersion, emptyCacheStorage } = useClearCache(props);
-
-  const { children } = props;
-
-  return children({
-    loading,
-    isLatestVersion,
-    emptyCacheStorage,
-  });
-};
-
-export default ClearCache;

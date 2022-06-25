@@ -71,42 +71,6 @@ ReactDOM.render(
 );
 ```
 
-### Using `render props`:
-
-```tsx
-import * as React from 'react';
-
-import ClearCache from 'react-clear-cache';
-
-const App: React.FC<{}> = () => {
-  return (
-    <div>
-      <ClearCache>
-        {({ isLatestVersion, emptyCacheStorage }) => (
-          <div>
-            {!isLatestVersion && (
-              <p>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    emptyCacheStorage();
-                  }}
-                >
-                  Update version
-                </a>
-              </p>
-            )}
-          </div>
-        )}
-      </ClearCache>
-    </div>
-  );
-};
-
-export default App;
-```
-
 ### Using `hooks`:
 
 ```tsx
@@ -142,7 +106,7 @@ export default App;
 
 ### `duration`: number
 
-You can set the duration when to fetch for new updates.
+You can set the duration (ms) when to fetch for new updates.
 
 ### `auto`: boolean
 

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
     "module": "esnext",
     "target": "es5",
     "strict": true,
@@ -8,7 +7,6 @@
     "sourceMap": true,
     "allowJs": false,
     "jsx": "react-jsx",
-    "declaration": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
