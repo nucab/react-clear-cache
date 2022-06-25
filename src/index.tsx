@@ -153,6 +153,7 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
 
   useEffect(() => {
     const startVersionCheck = () => {
+      fetchMeta();
       fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
     };
 
@@ -161,7 +162,6 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
     };
 
     if (enabled) {
-      fetchMeta();
       startVersionCheck();
       addEventListener('focus', startVersionCheck);
       addEventListener('blur', stopVersionCheck);
