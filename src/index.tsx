@@ -157,7 +157,7 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
       clearInterval(fetchCacheTimeout);
     };
 
-    if (enabled && window.navigator.onLine) {
+    if (enabled) {
       fetchMeta();
       startVersionCheck();
       window.addEventListener('focus', startVersionCheck);
@@ -165,11 +165,9 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
     }
 
     return () => {
-      if (enabled && window.navigator.onLine) {
-        stopVersionCheck();
-        window.removeEventListener('focus', startVersionCheck);
-        window.removeEventListener('blur', stopVersionCheck);
-      }
+      stopVersionCheck();
+      window.removeEventListener('focus', startVersionCheck);
+      window.removeEventListener('blur', stopVersionCheck);
     };
   }, [enabled, duration]);
 
