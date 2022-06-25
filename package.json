@@ -1,18 +1,20 @@
 {
   "name": "react-clear-cache-v2",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "description": "A component to manage application updates with an enhancement to the [react-clear-cache](https://www.npmjs.com/package/react-clear-cache) package.",
   "author": "hckhanh",
   "license": "MIT",
+  "type": "module",
   "repository": "hckhanh/react-clear-cache",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "bin": "./bin/cli.js",
-  "type": "module",
+  "types": "index.d.ts",
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "engines": {
     "node": ">=14"
