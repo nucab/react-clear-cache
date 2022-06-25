@@ -68,7 +68,9 @@ type Result = {
 
 const ClearCacheContext = createContext<Result>({} as Result);
 
-export const ClearCacheProvider: FC<PropsWithChildren<OwnProps>> = (props) => {
+export const ClearCacheProvider: FC<PropsWithChildren<Partial<OwnProps>>> = (
+  props
+) => {
   const { children, ...otherProps } = props;
   const result = useClearCache(otherProps);
   return (
@@ -82,7 +84,7 @@ export const useClearCacheCtx = () => useContext(ClearCacheContext);
 
 let fetchCacheTimeout: any;
 
-export const useClearCache = (props?: OwnProps) => {
+export const useClearCache = (props?: Partial<OwnProps>) => {
   const { enabled, duration, auto, storageKey, basePath, filename } = {
     ...defaultProps,
     ...props,
