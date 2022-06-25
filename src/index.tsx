@@ -174,17 +174,24 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
   };
 
   useEffect(() => {
-    window.addEventListener('focus', startVersionCheck.current);
-    window.addEventListener('blur', stopVersionCheck.current);
-    () => {
-      window.removeEventListener('focus', startVersionCheck.current);
-      window.removeEventListener('blur', stopVersionCheck.current);
+    if (enabled) {
+      window.addEventListener('focus', startVersionCheck.current);
+      window.addEventListener('blur', stopVersionCheck.current);
+    }
+
+    return () => {
+      if (enabled) {
+        window.removeEventListener('focus', startVersionCheck.current);
+        window.removeEventListener('blur', stopVersionCheck.current);
+      }
     };
-  }, []);
+  }, [enabled]);
 
   useEffect(() => {
-    fetchMeta();
-  }, []);
+    if (enabled) {
+      fetchMeta();
+    }
+  }, [enabled]);
 
   return {
     loading,
