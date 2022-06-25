@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import createPersistedState from 'use-persisted-state-v2';
 
 type OwnProps = {
@@ -149,49 +149,29 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
   }
 
   useEffect(() => {
-    if (enabled) {
+    const startVersionCheck = () => {
       fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
-    }
-
-    return () => {
-      if (enabled) {
-        clearInterval(fetchCacheTimeout);
-      }
     };
-  }, [enabled, loading]);
 
-  const startVersionCheck = useRef(() => {});
-  const stopVersionCheck = useRef(() => {});
-
-  startVersionCheck.current = () => {
-    if (window.navigator.onLine) {
-      fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
-    }
-  };
-
-  stopVersionCheck.current = () => {
-    clearInterval(fetchCacheTimeout);
-  };
-
-  useEffect(() => {
-    if (enabled) {
-      window.addEventListener('focus', startVersionCheck.current);
-      window.addEventListener('blur', stopVersionCheck.current);
-    }
-
-    return () => {
-      if (enabled) {
-        window.removeEventListener('focus', startVersionCheck.current);
-        window.removeEventListener('blur', stopVersionCheck.current);
-      }
+    const stopVersionCheck = () => {
+      clearInterval(fetchCacheTimeout);
     };
-  }, [enabled]);
 
-  useEffect(() => {
-    if (enabled) {
+    if (enabled && window.navigator.onLine) {
       fetchMeta();
+      startVersionCheck();
+      window.addEventListener('focus', startVersionCheck);
+      window.addEventListener('blur', stopVersionCheck);
     }
-  }, [enabled]);
+
+    return () => {
+      if (enabled && window.navigator.onLine) {
+        stopVersionCheck();
+        window.removeEventListener('focus', startVersionCheck);
+        window.removeEventListener('blur', stopVersionCheck);
+      }
+    };
+  }, [enabled, duration]);
 
   return {
     loading,
