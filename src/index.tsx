@@ -90,7 +90,10 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
     ...props,
   };
   const [loading, setLoading] = useState(true);
-  const useAppVersionState = createPersistedState<string>(storageKey);
+  const useAppVersionState = createPersistedState<string>(
+    storageKey,
+    sessionStorage
+  );
   const [appVersion, setAppVersion] = useAppVersionState('');
   const [isLatestVersion, setIsLatestVersion] = useState(true);
   const [latestVersion, setLatestVersion] = useState(appVersion);
@@ -102,17 +105,17 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
   const emptyCacheStorage = async (version?: string) => {
     if ('caches' in window) {
       // Service worker cache should be cleared with caches.delete()
-      const cacheKeys = await window.caches.keys();
+      const cacheKeys = await caches.keys();
       await Promise.all(
         cacheKeys.map((key) => {
-          window.caches.delete(key);
+          caches.delete(key);
         })
       );
     }
 
     // clear browser cache and reload page
     await setVersion(version || latestVersion);
-    window.location.replace(window.location.href);
+    location.replace(window.location.href);
   };
 
   // Replace any last slash with an empty space
@@ -160,14 +163,14 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
     if (enabled) {
       fetchMeta();
       startVersionCheck();
-      window.addEventListener('focus', startVersionCheck);
-      window.addEventListener('blur', stopVersionCheck);
+      addEventListener('focus', startVersionCheck);
+      addEventListener('blur', stopVersionCheck);
     }
 
     return () => {
       stopVersionCheck();
-      window.removeEventListener('focus', startVersionCheck);
-      window.removeEventListener('blur', stopVersionCheck);
+      removeEventListener('focus', startVersionCheck);
+      removeEventListener('blur', stopVersionCheck);
     };
   }, [enabled, duration]);
 
