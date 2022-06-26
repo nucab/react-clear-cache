@@ -115,7 +115,12 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
 
     // clear browser cache and reload page
     await setVersion(version || latestVersion);
-    location.replace(window.location.href);
+    // Note: Firefox supports a non-standard forceGet boolean parameter for
+    // location.reload(), to tell Firefox to bypass its cache and force-reload
+    // the current document. However, in all other browsers, any parameter you
+    // specify in a location.reload() call will be ignored and have no effect
+    // of any kind.
+    (location.reload as (forceGet?: boolean) => void)(true);
   };
 
   // Replace any last slash with an empty space
