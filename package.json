@@ -1,11 +1,18 @@
 {
   "name": "react-clear-cache-v2",
-  "version": "3.9.1",
+  "version": "3.9.2",
   "description": "A component to manage application updates with an enhancement to the [react-clear-cache](https://www.npmjs.com/package/react-clear-cache) package.",
-  "author": "hckhanh",
   "license": "MIT",
+  "author": {
+    "name": "Khánh Hoàng",
+    "email": "npm@khanh.land",
+    "url": "https://khanh.land"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hckhanh/react-clear-cache.git"
+  },
   "type": "module",
-  "repository": "hckhanh/react-clear-cache",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
