@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile as _writeFile } from 'fs';
+import { mkdir, writeFile } from 'fs';
 import parseArgs from 'minimist';
 import { dirname as getDirName } from 'path';
 import { v4 as uuid } from 'uuid';
@@ -19,7 +19,14 @@ const destination = args.destination || './public/meta.json';
 
 const filename = destination.match(/[^\\/]+$/)[0];
 
-writeFile(destination, jsonContent, (err) => {
+function writeMetaFile(path, contents, cb) {
+  mkdir(getDirName(path), { recursive: true }, (err) => {
+    if (err) return cb(err);
+    writeFile(path, contents, cb);
+  });
+}
+
+writeMetaFile(destination, jsonContent, (err) => {
   if (err) {
     console.log(`An error occured while writing JSON Object to ${filename}`);
     return console.log(err);
@@ -27,10 +34,3 @@ writeFile(destination, jsonContent, (err) => {
   console.log(`${filename} file has been saved with latest version number`);
   return null;
 });
-
-function writeFile(path, contents, cb) {
-  mkdir(getDirName(path), { recursive: true }, (err) => {
-    if (err) return cb(err);
-    _writeFile(path, contents, cb);
-  });
-}
