@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import createPersistedState from 'use-persisted-state-v2';
 
 declare global {
@@ -96,9 +96,9 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
     ...props,
   };
   const [loading, setLoading] = useState(true);
-  const useAppVersionState = createPersistedState<string>(
-    storageKey,
-    sessionStorage
+  const useAppVersionState = useMemo(
+    () => createPersistedState<string>(storageKey, sessionStorage),
+    [storageKey]
   );
   const [appVersion, setAppVersion] = useAppVersionState('');
   const [isLatestVersion, setIsLatestVersion] = useState(true);
