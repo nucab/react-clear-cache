@@ -12,12 +12,11 @@ export default {
       file: pkg.module,
       format: 'es',
       exports: 'auto',
-      sourcemap: true,
     },
   ],
   plugins: [
     cleandir('./dist'),
-    external(),
+    external({ includeDependencies: true }),
     resolve(),
     typescript({
       tsconfig: './tsconfig.json',

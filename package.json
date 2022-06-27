@@ -15,6 +15,7 @@
   "type": "module",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",
+  "browser": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "bin": "./bin/cli.js",
   "types": "dist/index.d.ts",
