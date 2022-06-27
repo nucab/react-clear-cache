@@ -16,6 +16,12 @@ type OwnProps = {
   enabled: boolean;
 
   /**
+   * The number of times (ms) to delay before fetching the meta file.
+   * @defaultValue `3000`
+   */
+  fetchDelay: number;
+
+  /**
    * You can set the duration (ms) when to fetch for new updates.
    * @defaultValue `60000`
    */
@@ -48,7 +54,8 @@ type OwnProps = {
 
 const defaultProps: OwnProps = {
   enabled: true,
-  duration: 60 * 1000,
+  fetchDelay: 3000,
+  duration: 60000,
   auto: false,
   storageKey: 'APP_VERSION',
   basePath: '',
@@ -88,10 +95,16 @@ export const ClearCacheProvider: FC<PropsWithChildren<Partial<OwnProps>>> = (
 
 export const useClearCacheCtx = () => useContext(ClearCacheContext);
 
-let fetchCacheTimeout: any;
-
 export const useClearCache = (props?: Partial<OwnProps>) => {
-  const { enabled, duration, auto, storageKey, basePath, filename } = {
+  const {
+    enabled,
+    fetchDelay,
+    duration,
+    auto,
+    storageKey,
+    basePath,
+    filename,
+  } = {
     ...defaultProps,
     ...props,
   };
@@ -159,13 +172,16 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
   }
 
   useEffect(() => {
+    let fetchDelayTimeout: any, fetchCacheInterval: any;
+
     const startVersionCheck = () => {
-      fetchMeta();
-      fetchCacheTimeout = setInterval(() => fetchMeta(), duration);
+      fetchDelayTimeout = setTimeout(() => fetchMeta(), fetchDelay);
+      fetchCacheInterval = setInterval(() => fetchMeta(), duration);
     };
 
     const stopVersionCheck = () => {
-      clearInterval(fetchCacheTimeout);
+      clearTimeout(fetchDelayTimeout);
+      clearInterval(fetchCacheInterval);
     };
 
     if (enabled) {
@@ -179,7 +195,7 @@ export const useClearCache = (props?: Partial<OwnProps>) => {
       removeEventListener('focus', startVersionCheck);
       removeEventListener('blur', stopVersionCheck);
     };
-  }, [enabled, duration]);
+  }, [fetchDelay, enabled, duration]);
 
   return {
     loading,

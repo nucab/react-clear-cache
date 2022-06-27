@@ -1,6 +1,6 @@
 {
   "name": "react-clear-cache-v2",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "A component to manage application updates with an enhancement to the [react-clear-cache](https://www.npmjs.com/package/react-clear-cache) package.",
   "license": "MIT",
   "author": {
