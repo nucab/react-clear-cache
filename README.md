@@ -16,11 +16,11 @@ See [demo](https://noahjohn9259.github.io/react-clear-cache/)
 ## Install
 
 ```bash
-npm install react-clear-cache
+npm install react-clear-cache-v2
 ```
 
 ```bash
-yarn add react-clear-cache
+yarn add react-clear-cache-v2
 ```
 
 ## Add script in package.json
@@ -40,9 +40,9 @@ This will generate `meta.json` file. This will have the version key with the lat
 ```tsx
 import * as React from 'react';
 
-import { ClearCacheProvider, useClearCacheCtx } from 'react-clear-cache';
+import { ClearCacheProvider, useClearCacheCtx } from 'react-clear-cache-v2';
 
-const App: React.FC<{}> = () => {
+const App: React.FC = () => {
   const { isLatestVersion, emptyCacheStorage } = useClearCacheCtx();
   return (
     <div>
@@ -76,7 +76,7 @@ ReactDOM.render(
 ```tsx
 import * as React from 'react';
 
-import { useClearCache } from 'react-clear-cache';
+import { useClearCache } from 'react-clear-cache-v2';
 
 const App: React.FC<{}> = () => {
   const { isLatestVersion, emptyCacheStorage } = useClearCache();
