@@ -10,12 +10,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
           cache: 'yarn'
-      - run: yarn
-      - run: yarn prettier --check .
-      - run: yarn build
+      - name: Install dependencies
+        run: yarn
+      - name: Prettier check
+        run: yarn prettier --check .
+      - name: Install dependencies
+        run: yarn build

@@ -1,6 +1,6 @@
 {
   "name": "react-clear-cache-v2",
-  "version": "4.1.0",
+  "version": "0.0.0-development",
   "description": "A component to manage application updates with an enhancement to the [react-clear-cache](https://www.npmjs.com/package/react-clear-cache) package.",
   "license": "MIT",
   "author": {
@@ -30,7 +30,8 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "minimist": "1.2.6",
@@ -51,7 +52,8 @@
     "rollup-plugin-cleandir": "2.0.0",
     "rollup-plugin-peer-deps-external": "2.2.4",
     "tslib": "2.4.0",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "semantic-release": "^19.0.5"
   },
   "packageManager": "yarn@3.2.1"
 }
