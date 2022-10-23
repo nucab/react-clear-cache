@@ -634,7 +634,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.0.14":
+"@types/react@npm:18.0.14":
   version: 18.0.14
   resolution: "@types/react@npm:18.0.14"
   dependencies:
@@ -3821,7 +3821,7 @@ __metadata:
   dependencies:
     "@rollup/plugin-node-resolve": 13.3.0
     "@rollup/plugin-typescript": 8.3.4
-    "@types/react": ^18.0.14
+    "@types/react": 18.0.14
     gh-pages: 4.0.0
     minimist: 1.2.6
     prettier: 2.7.1
