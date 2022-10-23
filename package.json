@@ -26,6 +26,11 @@
   "engines": {
     "node": ">=16"
   },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
