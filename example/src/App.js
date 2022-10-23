@@ -19,7 +19,7 @@ const App = () => {
           <p>
             <a
               href="#clear"
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 emptyCacheStorage();
               }}
