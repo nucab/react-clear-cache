@@ -39,7 +39,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "minimist": "1.2.6",
+    "minimist": "1.2.7",
     "use-persisted-state-v2": "1.1.2",
     "uuid": "8.3.2"
   },
