@@ -9,5 +9,6 @@
     ":separatePatchReleases",
     ":separateMultipleMajorReleases",
     ":automergeRequireAllStatusChecks"
-  ]
+  ],
+  "platformAutomerge": true
 }
