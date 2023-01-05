@@ -161,11 +161,11 @@ This function empty the CacheStorage and reloads the page.
 
 ## Contributors
 
-1. [noahjohn9259](https://github.com/noahjohn9259)
+1. [noahjohn9259](https://github.com/geminstall23)
 
 ## License
 
-MIT © [noahjohn9259](https://github.com/noahjohn9259)
+MIT © [noahjohn9259](https://github.com/geminstall23)
 
 ## Development
 
