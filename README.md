@@ -28,7 +28,7 @@ This will generate `meta.json` file. This will have the version key with the lat
 ```bash
 {
   "prebuild": "npm run generate-build-meta",
-  "generate-build-meta": "./node_modules/react-clear-cache/bin/cli.js"
+  "generate-build-meta": "node ./node_modules/react-clear-cache/bin/cli.js"
 }
 ```
 
