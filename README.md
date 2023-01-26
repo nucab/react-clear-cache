@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/react-clear-cache.svg)](https://www.npmjs.com/package/react-clear-cache) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[![Rate this package](https://badges.openbase.com/js/rating/react-clear-cache.svg?token=wqFZAY/V6KcfoKNmFEUlKWwXKAqWXg9RRKz2eE8fXqg=)](https://openbase.com/js/react-clear-cache?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge)
+[![Rate this package](https://badges.openbase.com/js/rating/react-clear-cache.svg?token=wqFZAY/V6KcfoKNmFEUlKWwXKAqWXg9RRKz2eE8fXqg=)](https://openbase.com/js/react-clear-cache?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 ## Demo
 
@@ -13,7 +13,7 @@
 
 ## Demo
 
-See [demo](https://noahjohn9259.github.io/react-clear-cache/)
+See [demo](https://geminstall23.github.io/react-clear-cache/)
 
 ## Install
 
@@ -49,7 +49,7 @@ const App: React.FC<{}> = () => {
         <p>
           <a
             href="#"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               emptyCacheStorage();
             }}
@@ -87,7 +87,7 @@ const App: React.FC<{}> = () => {
               <p>
                 <a
                   href="#"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
                     emptyCacheStorage();
                   }}
@@ -121,7 +121,7 @@ const App: React.FC<{}> = () => {
         <p>
           <a
             href="#"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               emptyCacheStorage();
             }}
